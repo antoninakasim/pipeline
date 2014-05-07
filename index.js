@@ -140,10 +140,13 @@ Pipeline.prototype.end = function(err) {
 	this.stop();
 
 	if (!this.finished) {
-
 		this.on('end', cleanup);
 		this.emit('end', err, this.results)
 	}
+
+  if (err) {
+    util.isError(err) ? util.log(err.toString() + '\n' + err.stack) : util.log(err);
+  }
 };
 
 Pipeline.prototype.stop =  function() {
